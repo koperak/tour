@@ -89,10 +89,18 @@ In practice, slices are much more common than arrays.
 
 The type `[]T` is a slice with elements of type `T`.
 
-This expression creates a slice of the first five elements of the array `a`:
+A slice is formed by specifying two indices, a low and
+high bound, separated by a colon:
 
-	a[0:5]
+	a[low : high]
 
+This selects a half-open range which includes the first
+element, but excludes the last one.
+
+The following expression creates a slice which includes
+elements 1 through 3 of `a`:
+
+	a[1:4]
 
 .play moretypes/slices.go
 
@@ -239,7 +247,12 @@ The first is the index, and the second is a copy of the element at that index.
 
 You can skip the index or value by assigning to `_`.
 
-If you only want the index, drop the ", value" entirely.
+    for i, _ := range pow
+    for _, value := range pow
+
+If you only want the index, you can omit the second variable.
+
+    for i := range pow
 
 .play moretypes/range-continued.go
 
@@ -301,7 +314,7 @@ If `key` is in `m`, `ok` is `true`. If not, `ok` is `false`.
 
 If `key` is not in the map, then `elem` is the zero value for the map's element type.
 
-_Note_: if `elem` or `ok` have not yet been declared you could use a short declaration form:
+*Note:* If `elem` or `ok` have not yet been declared you could use a short declaration form:
 
 	elem, ok := m[key]
 
